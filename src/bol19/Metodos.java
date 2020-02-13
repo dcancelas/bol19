@@ -62,4 +62,88 @@ public class Metodos {
         System.arraycopy(auxSumaGoles, 0, sumaGoles, 0, auxSumaGoles.length);
         System.arraycopy(auxFilas, 0, filas, 0, auxFilas.length);
     }
+    public void golesXornada(String[] filas, String[] columnas, int[][] matriz) {
+        int[][] auxMatriz = ClonarArrays.biInt(matriz);
+        String[] auxFilas = ClonarArrays.uniString(filas);
+
+        int auxmatriz;
+        String auxfilas;
+        for (int c = 0; c < matriz[0].length; c++) {
+            for (int f = 0; f < matriz.length; f++) {
+                for (int i = f+1; i < matriz.length; i++) {
+                    if (matriz[f][c] < matriz[i][c]) {
+                        auxmatriz = matriz[f][c];
+                        matriz[f][c] = matriz[i][c];
+                        matriz[i][c] = auxmatriz;
+                        auxfilas = filas[f];
+                        filas[f] = filas[i];
+                        filas[i] = auxfilas;
+                    }
+                }
+            }
+            System.out.println(columnas[c]+": "+filas[0]);
+            matriz = ClonarArrays.biInt(auxMatriz);
+            filas = ClonarArrays.uniString(auxFilas);
+        }
+    }
+    public void equipoXornada(String[] filas, String[] columnas, int[][] matriz) {
+        int[][] auxMatriz = ClonarArrays.biInt(matriz);
+        int[] gXornada = new int[columnas.length];
+
+        int auxmatriz;
+        for (int c = 0; c < matriz[0].length; c++) {
+            for (int f = 0; f < matriz.length; f++) {
+                for (int i = f+1; i < matriz.length; i++) {
+                    if (matriz[f][c] < matriz[i][c]) {
+                        auxmatriz = matriz[f][c];
+                        matriz[f][c] = matriz[i][c];
+                        matriz[i][c] = auxmatriz;
+                    }
+                }
+            }
+            gXornada[c] = matriz[0][c];
+            matriz = ClonarArrays.biInt(auxMatriz);
+        }
+        //Selecciona o maior número de goles entre tódalas xotrnadas
+        int auxgxornada;
+        for (int i = 0; i < gXornada.length; i++) {
+            for (int j = i + 1; j < gXornada.length; j++) {
+                if (gXornada[i] < gXornada[j]) {
+                    auxgxornada = gXornada[i];
+                    gXornada[i] = gXornada[j];
+                    gXornada[j] = auxgxornada;
+                }
+            }
+        }
+        int nf = 0;
+        int nc = 0;
+        for (int f = 0; f < matriz.length; f++) {
+            for (int c = 0; c < matriz[f].length; c++) {
+                if (matriz[f][c] == gXornada[0]) {
+                    nf = f;
+                    nc = c;
+                }
+            }
+        }
+        System.out.println("Equipo: "+filas[1]+"\n"+gXornada[0]+" goles na xornada "+columnas[nc]);
+    }
+    public void consultasGoles(String[] equipos, String[] xornadas, int[][] goles) {
+        String nomequipo = PedirDatos.pedirString("Introduce o nome do equipo: ");
+        int numequipo;
+        for (int i = 0; i < equipos.length; i++) {
+            if (equipos[i].equals(nomequipo)) {
+                numequipo = i;
+            }
+        }
+        String nomxornada = PedirDatos.pedirString("Introduce a xornada: ");
+        int numxornada;
+        for (int i = 0; i < xornadas.length; i++) {
+            if (xornadas[i].equals(nomxornada)) {
+                numxornada = i;
+            }
+        }
+
+
+
+    }
 }
