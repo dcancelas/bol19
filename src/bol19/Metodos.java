@@ -1,7 +1,5 @@
 package bol19;
 
-import java.util.Arrays;
-
 public class Metodos {
 
     public int[][] rexistrarGoles(int[][] matriz) {
@@ -129,21 +127,19 @@ public class Metodos {
     }
     public void consultasGoles(String[] equipos, String[] xornadas, int[][] goles) {
         String nomequipo = PedirDatos.pedirString("Introduce o nome do equipo: ");
-        int numequipo;
+        int numequipo = 0;
         for (int i = 0; i < equipos.length; i++) {
             if (equipos[i].equals(nomequipo)) {
                 numequipo = i;
             }
         }
         String nomxornada = PedirDatos.pedirString("Introduce a xornada: ");
-        int numxornada;
+        int numxornada = 0;
         for (int i = 0; i < xornadas.length; i++) {
             if (xornadas[i].equals(nomxornada)) {
                 numxornada = i;
             }
         }
-
-
-
+        System.out.println("Número de goles: "+goles[numequipo][numxornada]);
     }
 }
